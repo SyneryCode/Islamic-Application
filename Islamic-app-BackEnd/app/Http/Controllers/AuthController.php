@@ -101,14 +101,30 @@ class AuthController extends Controller
         ]);
     }
 
-    public function user(Request $request): JsonResponse
-    {
+public function user(Request $request): JsonResponse
+{
+    try {
+        $user = $request->user();
+        
+        if (!$user) {
+            return response()->json([
+                'error' => 'Unauthorized',
+                'message' => 'Token is invalid or expired'
+            ], 401);
+        }
+
         return response()->json([
             'user' => [
-                'id' => $request->user()->id,
-                'username' => $request->user()->username,
-                'email' => $request->user()->email,
+                'id' => $user->id,
+                'username' => $user->username,
+                'email' => $user->email,
             ]
         ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Unauthorized',
+            'message' => 'Token is invalid'
+        ], 401);
     }
+}
 }
