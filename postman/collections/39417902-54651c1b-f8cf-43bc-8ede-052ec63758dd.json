@@ -185,14 +185,28 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "azkar_massa",
 			"id": "39417902-16bc15de-e95a-478d-8d89-f43a096d0df9",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "https://ahegazy.github.io/muslimKit/json/azkar_massa.json",
+					"protocol": "https",
+					"host": [
+						"ahegazy",
+						"github",
+						"io"
+					],
+					"path": [
+						"muslimKit",
+						"json",
+						"azkar_massa.json"
+					]
+				}
 			},
 			"response": []
 		}
