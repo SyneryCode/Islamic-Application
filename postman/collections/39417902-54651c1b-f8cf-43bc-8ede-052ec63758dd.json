@@ -259,6 +259,14 @@
 						"main",
 						"audio",
 						"75.mp3\n"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": null,
+							"type": "text",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -286,11 +294,17 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
 					"responseTime": null,
-					"body": null
+					"body": "https://raw.githubusercontent.com/rn0x/Adhkar-json/main/${data.audio}  بعد الرابط ندخل حقل اسم الصوت من الداتا قيمته عند audio"
 				}
 			]
 		}
