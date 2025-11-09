@@ -237,14 +237,30 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "azkar-audio",
 			"id": "39417902-c438e404-facf-4925-a16b-81cfffd32b08",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "https://raw.githubusercontent.com/rn0x/Adhkar-json/main/audio/75.mp3\n",
+					"protocol": "https",
+					"host": [
+						"raw",
+						"githubusercontent",
+						"com"
+					],
+					"path": [
+						"rn0x",
+						"Adhkar-json",
+						"main",
+						"audio",
+						"75.mp3\n"
+					]
+				}
 			},
 			"response": []
 		}
