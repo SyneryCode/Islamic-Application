@@ -307,18 +307,6 @@
 					"body": "https://raw.githubusercontent.com/rn0x/Adhkar-json/main/${data.audio}  بعد الرابط ندخل حقل اسم الصوت من الداتا قيمته عند audio"
 				}
 			]
-		},
-		{
-			"name": "New Request",
-			"id": "39417902-ed2f9829-5165-4b90-afce-85a41f73e3bc",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
 		}
 	]
 }
