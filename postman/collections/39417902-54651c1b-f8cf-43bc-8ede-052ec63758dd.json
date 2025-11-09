@@ -166,7 +166,21 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "https://ahegazy.github.io/muslimKit/json/azkar_sabah.json",
+					"protocol": "https",
+					"host": [
+						"ahegazy",
+						"github",
+						"io"
+					],
+					"path": [
+						"muslimKit",
+						"json",
+						"azkar_sabah.json"
+					]
+				}
 			},
 			"response": []
 		}
