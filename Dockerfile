@@ -1,27 +1,29 @@
-# 1️⃣ اختر صورة PHP فيها Composer و Apache
+# 1️⃣ استخدم صورة PHP مع Apache
 FROM php:8.2-apache
 
-# 2️⃣ فعّل بعض الإضافات المهمة
+# 2️⃣ فعّل امتدادات Laravel المطلوبة
 RUN docker-php-ext-install pdo pdo_mysql
 
-# 3️⃣ انسخ ملفات المشروع إلى مجلد السيرفر
+# 3️⃣ انسخ ملفات المشروع
 COPY . /var/www/html
 
-# 4️⃣ إعداد مجلد العمل
+# 4️⃣ حدد مجلد العمل
 WORKDIR /var/www/html
 
-# 5️⃣ تثبيت المكتبات عبر Composer
-RUN curl -sS https://getcomposer.org/installer | php
-RUN php composer.phar install --no-dev --optimize-autoloader
+# 5️⃣ أضف Composer الرسمي
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# 6️⃣ إعداد Laravel
-RUN php artisan key:generate
+# 6️⃣ ثبّت المكتبات
+RUN composer install --no-dev --optimize-autoloader
 
-# 7️⃣ ضبط الأذونات (لـ storage و bootstrap/cache)
+# 7️⃣ إعداد Laravel
+RUN php artisan key:generate || true
+
+# 8️⃣ صلاحيات التخزين
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# 8️⃣ استمع على المنفذ 8080
+# 9️⃣ الاستماع على المنفذ
 EXPOSE 8080
 
-# 9️⃣ أمر التشغيل
+# 🔟 تشغيل Apache
 CMD ["apache2-foreground"]
