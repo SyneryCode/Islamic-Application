@@ -15,7 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+         $this->call([
+            SurahsSeeder::class,
+            VersesSeeder::class,
+            QuranTextToVersesSeeder::class,        // إذا عندك
+            RecitersSeeder::class,
+            // أضف أي Seeders أخرى هنا
+        ]);
 
         User::factory()->create([
             'name' => 'Test User',
