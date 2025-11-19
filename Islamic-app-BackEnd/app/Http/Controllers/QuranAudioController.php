@@ -2,33 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\QuranAudioService;
+use Illuminate\Http\Request;
 
 class QuranAudioController extends Controller
 {
-    private QuranAudioService $audio;
+    public function __construct(private QuranAudioService $audio) {}
 
-    public function __construct(QuranAudioService $audio)
+    public function ayah(int $surah, int $ayah, Request $r)
     {
-        $this->audio = $audio;
-    }
-
-    public function ayah(int $surah, int $ayah, Request $request)
-    {
-        $reciter = $request->query('reciter', 'ar.alafasy');
-
+        $reciter = $r->query('reciter', 'ar.alafasy');
         return response()->json(
             $this->audio->getAyahAudio($surah, $ayah, $reciter)
-        );
-    }
-
-    public function surah(int $surah, Request $request)
-    {
-        $reciter = $request->query('reciter', 'ar.alafasy');
-
-        return response()->json(
-            $this->audio->getSurahAudio($surah, $reciter)
         );
     }
 }

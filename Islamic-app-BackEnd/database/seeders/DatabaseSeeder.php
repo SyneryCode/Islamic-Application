@@ -17,15 +17,20 @@ class DatabaseSeeder extends Seeder
     {
          $this->call([
             SurahsSeeder::class,
-            VersesSeeder::class,
-            QuranTextToVersesSeeder::class,        // إذا عندك
+            // VersesSeeder::class,
+            // QuranTextToVersesSeeder::class,        // إذا عندك
             RecitersSeeder::class,
+            QuranFullSeeder::class,
+            // PagesSeeder::class,
+            // VersesMetaSeeder::class,
             // أضف أي Seeders أخرى هنا
         ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        User::create([
+    'username' => 'test',
+    'email' => 'test@example.com',
+    'password' => 'password',
+]);
+
     }
 }

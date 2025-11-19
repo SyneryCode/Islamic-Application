@@ -1,0 +1,225 @@
+{
+  "info": {
+    "name": "Islamic App API",
+    "_postman_id": "b2719b47-93fd-4a44-9bcb-a34ad11b52da",
+    "description": "Full Quran + Auth + Audio API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"test@example.com\",\n    \"password\": \"12345678\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"12345678\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "User Info",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer TOKEN_HERE" }],
+            "url": {
+              "raw": "http://localhost:8000/api/auth/user",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "auth", "user"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Quran",
+      "item": [
+        {
+          "name": "Get Surah",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/surah/{{surah}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "surah", "{{surah}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Ayah",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/ayah/{{surah}}:{{ayah}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "ayah", "{{surah}}:{{ayah}}"]
+            }
+          }
+        },
+        {
+          "name": "Search Ayah",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/search?q={{query}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "search"],
+              "query": [{ "key": "q", "value": "{{query}}" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Navigation",
+      "item": [
+        {
+          "name": "Page",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/page/{{page}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "page", "{{page}}"]
+            }
+          }
+        },
+        {
+          "name": "Juz",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/juz/{{juz}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "juz", "{{juz}}"]
+            }
+          }
+        },
+        {
+          "name": "Hizb",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/hizb/{{hizb}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "hizb", "{{hizb}}"]
+            }
+          }
+        },
+        {
+          "name": "Quarter",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/quarter/{{quarter}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "quarter", "{{quarter}}"]
+            }
+          }
+        },
+        {
+          "name": "Next Ayah",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/next/{{surah}}/{{ayah}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "next", "{{surah}}", "{{ayah}}"]
+            }
+          }
+        },
+        {
+          "name": "Previous Ayah",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/prev/{{surah}}/{{ayah}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "prev", "{{surah}}", "{{ayah}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Audio",
+      "item": [
+        {
+          "name": "Ayah Audio",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/audio/{{surah}}/{{ayah}}?reciter=ar.alafasy",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "audio", "{{surah}}", "{{ayah}}"],
+              "query": [{ "key": "reciter", "value": "ar.alafasy" }]
+            }
+          }
+        },
+        {
+          "name": "Surah Audio",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/quran/audio/surah/{{surah}}?reciter=ar.alafasy",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "quran", "audio", "surah", "{{surah}}"],
+              "query": [{ "key": "reciter", "value": "ar.alafasy" }]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

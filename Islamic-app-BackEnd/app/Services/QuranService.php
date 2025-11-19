@@ -8,22 +8,40 @@ use Illuminate\Support\Facades\Cache;
 
 class QuranService
 {
-    public function getSurah(int $surahId): array
-    {
-        return Cache::remember("surah_$surahId", 86400, function () use ($surahId) {
-            $surah = Surah::with('verses:surah_id,verse_number,text_ar')
-                ->findOrFail($surahId);
+    public function getSurah(int $surahNumber): array
+{
+    return Cache::remember("surah_{$surahNumber}", 86400, function () use ($surahNumber) {
 
-            return [
-                'id' => $surah->id,
-                'number' => $surah->number,
-                'name_ar' => $surah->name_ar,
-                'name_en' => $surah->name_en,
-                'verses_count' => $surah->verses_count,
-                'verses' => $surah->verses,
-            ];
-        });
-    }
+        // اجلب السورة بحسب الحقل number (أضمن من findOrFail برقم السورة)
+        $surah = Surah::where('number', $surahNumber)
+            ->with(['verses' => function ($q) {
+                // ضروري تضم id و surah_id بالإضافة للحقول المطلوبة
+                $q->select('id', 'surah_id', 'verse_number', 'text_ar', 'page_number', 'juz_number', 'hizb_number', 'hizb_quarter')
+                  ->orderBy('verse_number');
+            }])
+            ->firstOrFail();
+
+        return [
+            'id' => $surah->number,            // id للمستهلك هو رقم السورة عادةً
+            'number' => $surah->number,
+            'name_ar' => $surah->name_ar,
+            'name_en' => $surah->name_en,
+            'verses_count' => $surah->verses_count,
+            // حول collection إلى مصفوفة بسيطة مع الحقول المطلوبة
+            'verses' => $surah->verses->map(function ($v) {
+                return [
+                    'surah_id' => $v->surah_id,
+                    'verse_number' => $v->verse_number,
+                    'text_ar' => $v->text_ar,
+                    'page_number' => $v->page_number,
+                    'juz_number' => $v->juz_number,
+                    'hizb_number' => $v->hizb_number,
+                    'hizb_quarter' => $v->hizb_quarter,
+                ];
+            })->toArray(),
+        ];
+    });
+}
 
     public function getVerse(int $surahId, int $verseNumber): array
     {

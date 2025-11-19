@@ -7,15 +7,33 @@ use Illuminate\Support\Facades\DB;
 
 class RecitersSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         DB::table('reciters')->insert([
-            ['code' => 'ar.alafasy',    'name_ar' => 'مشاري العفاسي', 'name_en' => 'Alafasy'],
-            ['code' => 'ar.abdulbasit','name_ar' => 'عبد الباسط',     'name_en' => 'AbdulBasit'],
-            ['code' => 'ar.husary',    'name_ar' => 'الحصري',        'name_en' => 'Husary'],
+            [
+                'code' => 'ar.alafasy',
+                'name_ar' => 'مشاري العفاسي',
+                'name_en' => 'Alafasy',
+                'style' => 'murattal',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'code' => 'ar.abdulbasit',
+                'name_ar' => 'عبد الباسط',
+                'name_en' => 'AbdulBasit',
+                'style' => 'murattal',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'code' => 'ar.husary',
+                'name_ar' => 'الحصري',
+                'name_en' => 'Husary',
+                'style' => 'murattal',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }
