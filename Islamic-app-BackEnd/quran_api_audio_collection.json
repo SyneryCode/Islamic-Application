@@ -1,0 +1,121 @@
+{
+  "info": {
+    "name": "Quran API",
+    "_postman_id": "quran-api-collection",
+    "description": "Collection لاختبار جميع نقاط API الخاصة بالقرآن مع الأصوات والقرّاء.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Test API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/test"
+      },
+      "response": []
+    },
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\",\n  \"password_confirmation\": \"password123\"\n}"
+        },
+        "url": "{{base_url}}/auth/register"
+      },
+      "response": []
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": "{{base_url}}/auth/login"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Surah",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{base_url}}/quran/surah/1"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Ayah",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{base_url}}/quran/ayah/1:1?quality=64"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Surah Audio",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{base_url}}/quran/audio/surah/1?reciter=ar.alafasy"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Ayah Audio",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{base_url}}/quran/audio/ayah/1/1?quality=128"
+      },
+      "response": []
+    },
+    {
+      "name": "Search Quran",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{base_url}}/quran/search?q=الرحمن"
+      },
+      "response": []
+    },
+    {
+      "name": "Navigate Page",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{base_url}}/quran/page/1"
+      },
+      "response": []
+    },
+    {
+      "name": "Next Ayah",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{base_url}}/quran/next/1/1"
+      },
+      "response": []
+    },
+    {
+      "name": "Previous Ayah",
+      "request": {
+        "method": "GET",
+        "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+        "url": "{{base_url}}/quran/prev/1/2"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {"key": "base_url", "value": "http://localhost:8000/api"},
+    {"key": "token", "value": ""}
+  ]
+}
