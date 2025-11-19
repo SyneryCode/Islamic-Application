@@ -26,56 +26,42 @@ Route::middleware('auth:sanctum')->prefix('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Quran Data
+| Quran Data Routes
 |--------------------------------------------------------------------------
 */
 
 Route::prefix('quran')->group(function () {
 
-    // سورة - كامل السورة مع الآيات الـ 6236
+    // سورة / آية / بحث
     Route::get('/surah/{surahId}', [QuranController::class, 'surah']);
-
-    // آية — مثال: /quran/ayah/36:12
     Route::get('/ayah/{reference}', [QuranController::class, 'verse']);
-
-    // بحث عن آيات
     Route::get('/search', [QuranController::class, 'search']);
 
-    /*
-    |--------------------------------------------------------------------------
-    | Navigation (Pages, Juz, Hizb)
-    |--------------------------------------------------------------------------
-    */
-
+    // التصفح
     Route::get('/page/{page}', [QuranNavigatorController::class, 'page']);
     Route::get('/juz/{juz}', [QuranNavigatorController::class, 'juz']);
     Route::get('/hizb/{hizb}', [QuranNavigatorController::class, 'hizb']);
     Route::get('/quarter/{quarter}', [QuranNavigatorController::class, 'quarter']);
 
-    // Info
+    // معلومات
     Route::get('/surah/info/{id}', [QuranNavigatorController::class, 'surahInfo']);
     Route::get('/page/info/{page}', [QuranNavigatorController::class, 'pageInfo']);
 
-    /*
-    |--------------------------------------------------------------------------
-    | Navigation Next / Previous
-    |--------------------------------------------------------------------------
-    */
-
+    // التالي / السابق
     Route::get('/next/{surah}/{ayah}', [QuranNavigatorController::class, 'nextAyah']);
     Route::get('/prev/{surah}/{ayah}', [QuranNavigatorController::class, 'previousAyah']);
 
-    /*
-    |--------------------------------------------------------------------------
-    | Audio
-    |--------------------------------------------------------------------------
-    */
+    // AUDIO
+    Route::get('/audio/ayah/{surah}/{ayah}', [QuranAudioController::class, 'ayah'])
+        ->whereNumber('surah')->whereNumber('ayah');
 
-    Route::prefix('audio')->controller(QuranAudioController::class)->group(function () {
-        Route::get('/{surah}/{ayah}', 'ayah');        // آية بصوت قارئ
-        Route::get('/surah/{surah}', 'surah');        // سورة كاملة
-    });
+    Route::get('/audio/surah/{surah}', [QuranAudioController::class, 'surah'])
+        ->whereNumber('surah');
 });
 
-// Test endpoint
+/*
+|--------------------------------------------------------------------------
+| Test Endpoint
+|--------------------------------------------------------------------------
+*/
 Route::get('/test', fn () => response()->json(['message' => 'API is working!']));

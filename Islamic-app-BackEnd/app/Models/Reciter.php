@@ -9,6 +9,7 @@ class Reciter extends Model
 {
     protected $fillable = [
         'code',
+        'mp3_code',
         'name_ar',
         'name_en',
         'style',
