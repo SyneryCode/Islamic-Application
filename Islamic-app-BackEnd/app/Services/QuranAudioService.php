@@ -8,63 +8,72 @@ use Illuminate\Support\Facades\Cache;
 
 class QuranAudioService
 {
-    /**
-     * المصادر لكل آية وسورة
-     */
     private array $sources = [
         'ayah' => [
             64 => [
-                'https://api.alquran.cloud/v1/audio/ayah/' // مصدر API موثوق
+                'alquran'   => 'https://api.alquran.cloud/v1/ayah/',
+                'qurancom'  => 'https://api.quran.com/api/v4/verses/by_key/',
             ],
             128 => [
-                'https://api.alquran.cloud/v1/audio/ayah/'
+                'alquran'   => 'https://api.alquran.cloud/v1/ayah/',
+                'qurancom'  => 'https://api.quran.com/api/v4/verses/by_key/',
             ],
         ],
+
         'surah' => [
             'ar.alafasy' => [
-                'https://api.alquran.cloud/v1/audio/surah/ar.alafasy',
-                'https://quranicaudio.com/alafasy' // مصدر احتياطي
+                'alquran'   => 'https://api.alquran.cloud/v1/surah/ar.alafasy',
+                'mp3quran'  => 'https://server8.mp3quran.net/afs',
+                'qurancom'  => 'https://api.quran.com/api/v4/chapter_recitations/7?chapter=',
             ],
+
             'ar.abdulbasit' => [
-                'https://api.alquran.cloud/v1/audio/surah/ar.abdulbasit',
-                'https://quranicaudio.com/abdulbasit'
+                'alquran'   => 'https://api.alquran.cloud/v1/surah/ar.abdulbasit',
+                'mp3quran'  => 'https://server7.mp3quran.net/basit',
+                'qurancom'  => 'https://api.quran.com/api/v4/chapter_recitations/8?chapter=',
             ],
-            // يمكن إضافة بقية القراء هنا
+
+            'ar.husary' => [
+                'alquran'   => 'https://api.alquran.cloud/v1/surah/ar.husary',
+                'mp3quran'  => 'https://server9.mp3quran.net/husr',
+                'qurancom'  => 'https://api.quran.com/api/v4/chapter_recitations/9?chapter=',
+            ],
         ]
     ];
 
-    /**
-     * جلب صوت آية منفصلة مع fallback
-     */
     public function getAyahAudio(int $surah, int $ayah, int $quality = 64)
     {
         $quality = in_array($quality, [64, 128]) ? $quality : 64;
         $cacheKey = "ayah_audio_{$surah}_{$ayah}_{$quality}";
 
         return Cache::remember($cacheKey, 3600, function() use ($surah, $ayah, $quality) {
-            foreach ($this->sources['ayah'][$quality] as $baseUrl) {
-                $url = "{$baseUrl}{$surah}:{$ayah}/{$quality}";
+            foreach ($this->sources['ayah'][$quality] as $type => $baseUrl) {
+
+                if ($type === 'qurancom') {
+                    $url = $baseUrl . "$surah:$ayah?audio=7";
+                } else {
+                    $url = $baseUrl . "$surah:$ayah/$quality";
+                }
+
                 if ($this->urlExists($url)) {
                     return [
                         'type' => 'ayah',
                         'surah' => $surah,
                         'ayah' => $ayah,
                         'quality' => $quality,
-                        'audio_url' => $url
+                        'source' => $type,
+                        'audio_url' => $url,
                     ];
                 }
             }
 
             return [
                 'error' => 'Audio not found',
-                'message' => 'لم يتم العثور على مقطع الآية، حاول اختيار جودة أخرى أو قارئ مختلف.'
+                'message' => 'لم يتم العثور على تلاوة للآية المطلوبة.'
             ];
         });
     }
 
-    /**
-     * جلب صوت سورة كاملة مع fallback
-     */
     public function getSurahAudio(int $surah, string $reciterCode)
     {
         $cacheKey = "surah_audio_{$surah}_{$reciterCode}";
@@ -75,39 +84,51 @@ class QuranAudioService
             if (!$reciter) {
                 return [
                     'error' => 'Invalid reciter',
-                    'message' => 'القارئ غير موجود أو لم يتم إعداد الكود الصوتي.'
+                    'message' => 'القارئ غير موجود في قاعدة البيانات.'
                 ];
             }
 
             $surahPadded = str_pad($surah, 3, '0', STR_PAD_LEFT);
             $sources = $this->sources['surah'][$reciterCode] ?? [];
 
-            foreach ($sources as $baseUrl) {
-                $url = "{$baseUrl}/{$surahPadded}.mp3";
+            foreach ($sources as $type => $baseUrl) {
+
+                if ($type === 'mp3quran') {
+                    $url = "$baseUrl/$surahPadded.mp3";
+                }
+                elseif ($type === 'qurancom') {
+                    $url = $baseUrl . $surah;
+                }
+                else {
+                    $url = "$baseUrl/$surahPadded.mp3";
+                }
+
                 if ($this->urlExists($url)) {
                     return [
                         'type' => 'surah',
                         'surah' => $surah,
                         'reciter' => $reciterCode,
-                        'audio_url' => $url
+                        'source' => $type,
+                        'audio_url' => $url,
                     ];
                 }
             }
 
             return [
                 'error' => 'Audio not found',
-                'message' => 'لم يتم العثور على مقطع السورة، يرجى تجربة قارئ آخر.'
+                'message' => 'لم يتم العثور على تلاوة للسورة المطلوبة.'
             ];
         });
     }
 
-    /**
-     * تحقق من وجود الرابط
-     */
     private function urlExists(string $url): bool
     {
         try {
-            $response = Http::withOptions(['verify' => false, 'timeout' => 5])->head($url);
+            $response = Http::withOptions([
+                'verify' => false,
+                'timeout' => 5
+            ])->head($url);
+
             return $response->successful();
         } catch (\Exception $e) {
             return false;
