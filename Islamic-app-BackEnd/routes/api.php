@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuranController;
 use App\Http\Controllers\QuranAudioController;
 use App\Http\Controllers\QuranNavigatorController;
+use App\Http\Controllers\ZakatController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +60,15 @@ Route::prefix('quran')->group(function () {
     Route::get('/audio/surah/{surah}', [QuranAudioController::class, 'surah'])
         ->whereNumber('surah');
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| Zakat Endpoint
+|--------------------------------------------------------------------------
+*/
+Route::post('/zakat/calculate', [ZakatController::class, 'calculate']);
+
 
 /*
 |--------------------------------------------------------------------------

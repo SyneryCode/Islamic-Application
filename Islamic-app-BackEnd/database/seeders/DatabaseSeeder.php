@@ -17,12 +17,10 @@ class DatabaseSeeder extends Seeder
     {
          $this->call([
             SurahsSeeder::class,
-            // VersesSeeder::class,
+            ZakatTypeSeeder::class,
             // QuranTextToVersesSeeder::class,        // إذا عندك
             RecitersSeeder::class,
             QuranFullSeeder::class,
-            // PagesSeeder::class,
-            // VersesMetaSeeder::class,
             // أضف أي Seeders أخرى هنا
         ]);
 
