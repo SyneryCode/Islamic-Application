@@ -21,7 +21,6 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 40),
 
-                // عنوان الترحيب
                 Column(
                   children: [
                     Row(

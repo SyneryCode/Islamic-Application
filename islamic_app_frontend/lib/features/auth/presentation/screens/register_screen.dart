@@ -50,7 +50,6 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 40),
 
-                    // الاسم الكامل
                     _buildInputField(
                       label: "الاسم الكامل",
                       hint: "ادخل اسمك الكامل",
@@ -59,7 +58,6 @@ class RegisterScreen extends StatelessWidget {
 
                     const SizedBox(height: 20),
 
-                    // البريد الإلكتروني
                     _buildInputField(
                       label: "البريد الإلكتروني",
                       hint: "ادخل بريدك الإلكتروني",
