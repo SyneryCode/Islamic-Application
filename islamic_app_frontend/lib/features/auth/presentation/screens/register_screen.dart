@@ -1,26 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class RegisterProvider extends ChangeNotifier {
-  bool isPasswordVisible = false;
-  bool isConfirmPasswordVisible = false;
-  bool agreeToTerms = false;
-
-  void togglePasswordVisibility() {
-    isPasswordVisible = !isPasswordVisible;
-    notifyListeners();
-  }
-
-  void toggleConfirmPasswordVisibility() {
-    isConfirmPasswordVisible = !isConfirmPasswordVisible;
-    notifyListeners();
-  }
-
-  void toggleAgreement() {
-    agreeToTerms = !agreeToTerms;
-    notifyListeners();
-  }
-}
+import '../providers/register_provider.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});

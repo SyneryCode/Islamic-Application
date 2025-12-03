@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/welcome_provider.dart';
 import '../widgets/rounded_button.dart';
+import 'register_screen.dart';
+import 'login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -63,13 +65,28 @@ class WelcomeScreen extends StatelessWidget {
                 else ...[
                   RoundedButton(
                     label: 'إنشاء حساب جديد',
-                    onPressed: () => provider.createAccount(context),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterScreen(),
+                        ),
+                      );
+                    },
                     filled: true,
                   ),
+
                   const SizedBox(height: 12),
                   RoundedButton(
                     label: 'تسجيل الدخول',
-                    onPressed: () => provider.login(context),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
                     filled: false,
                   ),
                   const SizedBox(height: 18),
