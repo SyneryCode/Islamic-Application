@@ -2,7 +2,7 @@
 // app/Models/User.php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -27,6 +27,10 @@ class User extends Authenticatable
     protected $casts = [
         'reset_token_expires_at' => 'datetime',
     ];
+public function userHabits(): HasMany
+{
+    return $this->hasMany(UserHabit::class);
+}
 
     public function setPasswordAttribute($value): void
     {
