@@ -8,11 +8,7 @@ use App\Http\Controllers\QuranNavigatorController;
 use App\Http\Controllers\ZakatController;
 
 
-/*
-|--------------------------------------------------------------------------
-| Auth Routes
-|--------------------------------------------------------------------------
-*/
+
 
 use Illuminate\Http\Request;
 
