@@ -5,6 +5,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuranController;
 use App\Http\Controllers\QuranAudioController;
 use App\Http\Controllers\QuranNavigatorController;
+<<<<<<< Updated upstream
+=======
+use App\Http\Controllers\ZakatController;
+use App\Http\Controllers\ReportController;
+
+>>>>>>> Stashed changes
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +65,19 @@ Route::prefix('quran')->group(function () {
         ->whereNumber('surah');
 });
 
+<<<<<<< Updated upstream
+=======
+
+/*
+|--------------------------------------------------------------------------
+| Zakat Endpoint
+|--------------------------------------------------------------------------
+*/
+Route::post('/zakat/calculate', [ZakatController::class, 'calculate']);
+Route::middleware('auth:sanctum')->get('/zakat/report', [ReportController::class, 'zakatReport']);
+
+
+>>>>>>> Stashed changes
 /*
 |--------------------------------------------------------------------------
 | Test Endpoint
