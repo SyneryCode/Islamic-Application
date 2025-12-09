@@ -39,8 +39,8 @@ Route::post('tasks/{task}/complete', [TaskController::class, 'complete']);
 Route::prefix('auth')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
-    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+   Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+    Route::post('/reset-password',  [AuthController::class, 'resetPassword']);
 });
 /*huhuh*/
 Route::middleware('auth:sanctum')->prefix('auth')->group(function () {
